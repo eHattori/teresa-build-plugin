@@ -1,12 +1,11 @@
 package org.jenkinsci.plugins.teresabuild;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -47,7 +46,7 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	private final String password;
 	private final String server;	
 	private final String clusterName;
-	private final String command;
+	private final String command;	
 
 	/**
 	 * We'll use this from the {@code config.jelly}.
@@ -70,12 +69,12 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	
 	public String getClusterName() {
 		return clusterName;
-	}
+	}	
 	
 	private void configureTeresa() throws Exception{
 		
-		executeCommand("teresa config set-cluster "+ this.getClusterName() +" -s " + this.getServer());
-		executeCommand("teresa config use-cluster " + this.getClusterName());
+		Utils.executeCommand("teresa config set-cluster "+ this.getClusterName() +" -s " + this.getServer());
+		Utils.executeCommand("teresa config use-cluster " + this.getClusterName());
 				
 		OutputStream os = new FileOutputStream("script.sh");
 		OutputStreamWriter ws = new OutputStreamWriter(os);		
@@ -83,31 +82,8 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		ws.write("#! /bin/bash \n echo '"+ this.getPassword() + "' | teresa login --user " + this.getLogin());		
 		ws.close();
 		
-		executeCommand("chmod +x script.sh");
-		executeCommand("sh script.sh");
-	}
-
-	private String executeCommand(String cmd) {
-		try {
-			
-			Process process = Runtime.getRuntime().exec(cmd);
-			process.waitFor();
-			
-			StringBuffer output = new StringBuffer();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			
-			String line = "";
-			while ((line = reader.readLine()) != null) {				
-				output.append(line + "\n");
-			}		
-			
-			return output.toString();
-			
-		}catch (Exception e) {			
-			e.printStackTrace();
-		}
-		
-		return "";
+		Utils.executeCommand("chmod +x script.sh");
+		Utils.executeCommand("sh script.sh");
 	}
 
 	// Fields in config.jelly must match the parameter names in the
@@ -134,12 +110,22 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		listener.getLogger().println("Server:  " + this.server + "!");
 		listener.getLogger().println("Cluster Name:  " + this.clusterName + "!");		
 		listener.getLogger().println("Command :  " + this.command + "!");
+		listener.getLogger().println("Client Version : " + this.getDescriptor().getInstalations());
 		
 		listener.getLogger().println("Configure Teresa Server");
 		try {
 			this.configureTeresa();
 			listener.getLogger().println("Execute Command: ");
-			listener.getLogger().println(this.executeCommand(command));
+			
+			
+			OutputStream os = new FileOutputStream("script.sh");
+			OutputStreamWriter ws = new OutputStreamWriter(os);		
+			
+			ws.write("#! /bin/bash \n " + command);		
+			ws.close();			
+			
+			Utils.executeCommand("chmod +x script.sh");
+			listener.getLogger().println(Utils.executeCommand("sh script.sh"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,31 +153,57 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 				// extension point.
 	public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
 
+		private String instalations;
+
 		/**
 		 * In order to load the persisted global configuration, you have to call
 		 * load() in the constructor.
 		 */
 		public DescriptorImpl() {
+			String output = Utils.executeCommand("teresa version");			
+			if(output.indexOf("Client version") != -1){
+				this.instalations = output;
+			}
 			load();
 		}
-
-		/**
-		 * Performs on-the-fly validation of the form field 'name'.
-		 *
-		 * @param value
-		 *            This parameter receives the value that the user has typed.
-		 * @return Indicates the outcome of the validation. This is sent to the
-		 *         browser.
-		 *         <p>
-		 *         Note that returning {@link FormValidation#error(String)} does
-		 *         not prevent the form from being saved. It just means that a
-		 *         message will be displayed to the user.
-		 */
-		public FormValidation doCheckName(@QueryParameter String value) throws IOException, ServletException {
+		
+		public String getInstalations(){
+			return this.instalations;
+		}
+		
+		public FormValidation doCheckVersion(@QueryParameter String value) throws IOException, ServletException {	
+			System.out.println(value);
 			if (value.length() == 0)
-				return FormValidation.error("Please set a name");
-			if (value.length() < 4)
-				return FormValidation.warning("Isn't the name too short?");
+				return FormValidation.error("Teresa-cli is not available see: <https://github.com/luizalabs/teresa-cli> ");
+			
+			return FormValidation.ok();
+		}
+		
+		public FormValidation doCheckLogin(@QueryParameter String value) throws IOException, ServletException {	
+			if (value.length() == 0)
+				return FormValidation.error("Please set a Login");
+			
+			return FormValidation.ok();
+		}
+		
+		public FormValidation doCheckPassword(@QueryParameter String value) throws IOException, ServletException {	
+			if (value.length() == 0)
+				return FormValidation.error("Please set a Password");
+			
+			return FormValidation.ok();
+		}
+		
+		public FormValidation doCheckServer(@QueryParameter String value) throws IOException, ServletException {	
+			if (value.length() == 0)
+				return FormValidation.error("Please set a URI Server");
+			
+			return FormValidation.ok();
+		}
+		
+		public FormValidation doCheckClusterName(@QueryParameter String value) throws IOException, ServletException {	
+			if (value.length() == 0)
+				return FormValidation.error("Please set a Cluster Name");
+			
 			return FormValidation.ok();
 		}
 
@@ -210,7 +222,6 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 
 		@Override
 		public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
-			//valida se existe uma instalação do teresa			
 			save();
 			return super.configure(req, formData);
 		}

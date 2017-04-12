@@ -18,7 +18,8 @@
       <server>http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080</server>
       <clusterName>ml-gestao-fretes</clusterName>
       <command>teresa app list
-</command>
+
+teresa deploy /home/hattori/dev/projetos/ml-carreteiro --app back-ml-gestao-fretes --description &quot;Teste plugin jenkins&quot; --no-input</command>
     </org.jenkinsci.plugins.teresabuild.TeresaBuilder>
   </builders>
   <publishers/>
