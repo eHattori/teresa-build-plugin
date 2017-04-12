@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: teresa-build
+Long-Name: TODO Plugin
+Url: https://wiki.jenkins-ci.org/display/JENKINS/TODO+Plugin
+Plugin-Version: 1.0-SNAPSHOT (private-04/12/2017 14:02-hattori)
+Hudson-Version: 1.625.3
+Jenkins-Version: 1.625.3
+Plugin-Developers: 
+Libraries: /home/hattori/workspace/teresaBuild/teresa-build/src/main/r
+ esources,/home/hattori/workspace/teresaBuild/teresa-build/target/clas
+ ses
+Resource-Path: /home/hattori/workspace/teresaBuild/teresa-build/src/ma
+ in/webapp
+
