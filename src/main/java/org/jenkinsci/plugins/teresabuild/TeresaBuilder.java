@@ -47,6 +47,7 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	private final String server;	
 	private final String clusterName;
 	private final String command;	
+	private TaskListener listener;
 
 	/**
 	 * We'll use this from the {@code config.jelly}.
@@ -73,17 +74,10 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	
 	private void configureTeresa() throws Exception{
 		
-		Utils.executeCommand("teresa config set-cluster "+ this.getClusterName() +" -s " + this.getServer());
-		Utils.executeCommand("teresa config use-cluster " + this.getClusterName());
-				
-		OutputStream os = new FileOutputStream("script.sh");
-		OutputStreamWriter ws = new OutputStreamWriter(os);		
+		Utils.executeCommand("teresa config set-cluster "+ this.getClusterName() +" -s " + this.getServer(), this.listener);
+		Utils.executeCommand("teresa config use-cluster " + this.getClusterName(), this.listener);
 		
-		ws.write("#! /bin/bash \n echo '"+ this.getPassword() + "' | teresa login --user " + this.getLogin());		
-		ws.close();
-		
-		Utils.executeCommand("chmod +x script.sh");
-		Utils.executeCommand("sh script.sh");
+		Utils.executeCommand("echo '"+ this.getPassword() + "' | teresa login --user " + this.getLogin(),  null);	
 	}
 
 	// Fields in config.jelly must match the parameter names in the
@@ -106,26 +100,20 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 
 		// This also shows how you can consult the global configuration of the
 		// builder
-		listener.getLogger().println("Login:  " + this.login + "!");		
-		listener.getLogger().println("Server:  " + this.server + "!");
-		listener.getLogger().println("Cluster Name:  " + this.clusterName + "!");		
-		listener.getLogger().println("Command :  " + this.command + "!");
+		this.listener = listener;
+		
+		listener.getLogger().println("Login:  " + this.login );		
+		listener.getLogger().println("Server:  " + this.server );
+		listener.getLogger().println("Cluster Name:  " + this.clusterName );		
+		listener.getLogger().println("Command :  " + this.command);
 		listener.getLogger().println("Client Version : " + this.getDescriptor().getInstalations());
 		
 		listener.getLogger().println("Configure Teresa Server");
 		try {
 			this.configureTeresa();
+			
 			listener.getLogger().println("Execute Command: ");
-			
-			
-			OutputStream os = new FileOutputStream("script.sh");
-			OutputStreamWriter ws = new OutputStreamWriter(os);		
-			
-			ws.write("#! /bin/bash \n " + command);		
-			ws.close();			
-			
-			Utils.executeCommand("chmod +x script.sh");
-			listener.getLogger().println(Utils.executeCommand("sh script.sh"));
+			Utils.executeCommand(command,this.listener);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -160,10 +148,9 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		 * load() in the constructor.
 		 */
 		public DescriptorImpl() {
-			String output = Utils.executeCommand("teresa version");			
-			if(output.indexOf("Client version") != -1){
-				this.instalations = output;
-			}
+			String output = Utils.executeCommand("teresa version", null);			
+			this.instalations = output;
+			
 			load();
 		}
 		

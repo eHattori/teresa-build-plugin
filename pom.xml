@@ -9,9 +9,36 @@
     <version>2.11</version>
     <relativePath/>
   </parent>
+  
   <artifactId>teresa-build</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1.7-SNAPSHOT</version>
+  <name>Teresa Jenkins Build</name>
+  <description>Teresa Build is an useful jenkins plugin that helps the developer to deploy applications easily</description>
+  <url>https://wiki.jenkins-ci.org/display/JENKINS/teresa-jenkins-build+Plugin</url>
   <packaging>hpi</packaging>
+   
+  <developers>
+    <developer>
+      <id>ehattori</id>
+      <name>Eduardo Hattori</name>
+      <email>eduardo.fcamara@luizalabs.com</email>
+    </developer>
+    <developer>
+      <id>eduardocortes</id>
+      <name>Eduardo Cortes</name>
+      <email>eduardocortes.fcamara@luizalabs.com</email>
+    </developer>
+    <developer>
+      <id>mahelder</id>
+      <name>Mahelder Melo</name>
+      <email>mahelder.fcamara@luizalabs.com</email>
+    </developer>
+    <developer>
+      <id>clebercf</id>
+      <name>Cleber Fonseca</name>
+      <email>cleber.avance@luizalabs.com</email>
+    </developer>
+  </developers>  
 
   <properties>
     <!-- Baseline Jenkins version you use to build the plugin. Users must have this version or newer to run. -->
@@ -27,9 +54,7 @@
     -->
   </properties>
 
-  <name>Teresa Build</name>
-  <description>Plugin para auxiliar o deploy de aplicações pelo Teresa com</description>
-  <url>https://wiki.jenkins-ci.org/display/JENKINS/TODO+Plugin</url>
+  
 
   <!-- The default licence for Jenkins OSS Plugins is MIT. Substitute for the applicable one if needed. -->
 
@@ -40,15 +65,7 @@
     </license>
   </licenses>
 
-  <!-- If you want this to appear on the wiki page:
-  <developers>
-    <developer>
-      <id>bhacker</id>
-      <name>Bob Q. Hacker</name>
-      <email>bhacker@nowhere.net</email>
-    </developer>
-  </developers>
-  -->
+ 
   <!-- Assuming you want to host on @jenkinsci:
   <scm>
     <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>

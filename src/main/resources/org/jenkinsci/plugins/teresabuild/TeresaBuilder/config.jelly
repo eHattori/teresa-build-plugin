@@ -20,6 +20,7 @@
     <f:textbox />
   </f:entry>  
   <f:entry title="Command" field="command">
-    <f:textarea />
+    <f:textarea 
+    codemirror-config="mode: 'text/x-sh'" codemirror-mode="shell" name="command" rows="5"/>
   </f:entry>   
 </j:jelly>
