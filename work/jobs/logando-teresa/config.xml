@@ -12,12 +12,12 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <org.jenkinsci.plugins.teresabuild.TeresaBuilder plugin="teresa-build@1.0.0-SNAPSHOT">
+    <org.jenkinsci.plugins.teresabuild.TeresaBuilder plugin="teresa-build@0.1.8-SNAPSHOT">
       <login>eduardo.fcamara@luizalabs.com</login>
       <password>eduardo2000</password>
       <server>http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080</server>
       <clusterName>ml-gestao-fretes</clusterName>
-      <command>teresa app list</command>
+      <command>asd</command>
     </org.jenkinsci.plugins.teresabuild.TeresaBuilder>
   </builders>
   <publishers/>

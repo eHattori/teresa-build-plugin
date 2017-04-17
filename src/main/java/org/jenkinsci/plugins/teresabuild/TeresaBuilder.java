@@ -44,9 +44,9 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 
 	private final String login;
 	private final String password;
-	private final String server;	
+	private final String server;
 	private final String clusterName;
-	private final String command;	
+	private final String command;
 	private TaskListener listener;
 
 	/**
@@ -67,17 +67,18 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	public String getCommand() {
 		return command;
 	}
-	
+
 	public String getClusterName() {
 		return clusterName;
-	}	
-	
-	private void configureTeresa() throws Exception{
-		
-		Utils.executeCommand("teresa config set-cluster "+ this.getClusterName() +" -s " + this.getServer(), this.listener);
+	}
+
+	private void configureTeresa() throws Exception {
+
+		Utils.executeCommand("teresa config set-cluster " + this.getClusterName() + " -s " + this.getServer(),
+				this.listener);
 		Utils.executeCommand("teresa config use-cluster " + this.getClusterName(), this.listener);
-		
-		Utils.executeCommand("echo '"+ this.getPassword() + "' | teresa login --user " + this.getLogin(),  null);	
+
+		Utils.executeCommand("echo '" + this.getPassword() + "' | teresa login --user " + this.getLogin(), null);
 	}
 
 	// Fields in config.jelly must match the parameter names in the
@@ -86,13 +87,14 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	public TeresaBuilder(String login, String password, String server, String clusterName, String command) {
 		this.login = login;
 		this.password = password;
-		this.server = server;		
+		this.server = server;
 		this.clusterName = clusterName;
 		this.command = command;
 	}
 
 	@Override
-	public void perform(Run<?, ?> build, FilePath workspace, Launcher launcher, TaskListener listener) {
+	public void perform(Run<?, ?> build, FilePath workspace, Launcher launcher, TaskListener listener)
+			throws InterruptedException, IOException  {
 
 		// This is where you 'build' the project.
 		// Since this is a dummy, we just say 'hello world' and call that a
@@ -101,23 +103,28 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		// This also shows how you can consult the global configuration of the
 		// builder
 		this.listener = listener;
-		
-		listener.getLogger().println("Login:  " + this.login );		
-		listener.getLogger().println("Server:  " + this.server );
-		listener.getLogger().println("Cluster Name:  " + this.clusterName );		
+
+		listener.getLogger().println("Login:  " + this.login);
+		listener.getLogger().println("Server:  " + this.server);
+		listener.getLogger().println("Cluster Name:  " + this.clusterName);
 		listener.getLogger().println("Command :  " + this.command);
 		listener.getLogger().println("Client Version : " + this.getDescriptor().getInstalations());
-		
+
 		listener.getLogger().println("Configure Teresa Server");
+
 		try {
 			this.configureTeresa();
-			
+
 			listener.getLogger().println("Execute Command: ");
-			Utils.executeCommand(command,this.listener);
+			Utils.executeCommand(command, this.listener);
+
+		
+		} catch (IOException e) {
+			throw e; 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	// Overridden for better type safety.
@@ -148,49 +155,56 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		 * load() in the constructor.
 		 */
 		public DescriptorImpl() {
-			String output = Utils.executeCommand("teresa version", null);			
-			this.instalations = output;
-			
+			String output;
+			try {
+				output = Utils.executeCommand("teresa version", null);
+				this.instalations = output;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			load();
 		}
-		
-		public String getInstalations(){
+
+		public String getInstalations() {
 			return this.instalations;
 		}
-		
-		public FormValidation doCheckVersion(@QueryParameter String value) throws IOException, ServletException {	
+
+		public FormValidation doCheckVersion(@QueryParameter String value) throws IOException, ServletException {
 			System.out.println(value);
 			if (value.length() == 0)
-				return FormValidation.error("Teresa-cli is not available see: <https://github.com/luizalabs/teresa-cli> ");
-			
+				return FormValidation
+						.error("Teresa-cli is not available see: <https://github.com/luizalabs/teresa-cli> ");
+
 			return FormValidation.ok();
 		}
-		
-		public FormValidation doCheckLogin(@QueryParameter String value) throws IOException, ServletException {	
+
+		public FormValidation doCheckLogin(@QueryParameter String value) throws IOException, ServletException {
 			if (value.length() == 0)
 				return FormValidation.error("Please set a Login");
-			
+
 			return FormValidation.ok();
 		}
-		
-		public FormValidation doCheckPassword(@QueryParameter String value) throws IOException, ServletException {	
+
+		public FormValidation doCheckPassword(@QueryParameter String value) throws IOException, ServletException {
 			if (value.length() == 0)
 				return FormValidation.error("Please set a Password");
-			
+
 			return FormValidation.ok();
 		}
-		
-		public FormValidation doCheckServer(@QueryParameter String value) throws IOException, ServletException {	
+
+		public FormValidation doCheckServer(@QueryParameter String value) throws IOException, ServletException {
 			if (value.length() == 0)
 				return FormValidation.error("Please set a URI Server");
-			
+
 			return FormValidation.ok();
 		}
-		
-		public FormValidation doCheckClusterName(@QueryParameter String value) throws IOException, ServletException {	
+
+		public FormValidation doCheckClusterName(@QueryParameter String value) throws IOException, ServletException {
 			if (value.length() == 0)
 				return FormValidation.error("Please set a Cluster Name");
-			
+
 			return FormValidation.ok();
 		}
 

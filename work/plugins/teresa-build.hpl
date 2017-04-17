@@ -1,19 +1,18 @@
 Manifest-Version: 1.0
 Group-Id: org.jenkins-ci.plugins
 Short-Name: teresa-build
-Long-Name: Teresa Jenkins Build
-Url: https://wiki.jenkins-ci.org/display/JENKINS/teresa-jenkins-build+
- Plugin
-Plugin-Version: 0.1.6-SNAPSHOT (private-53f94f1c-hattori)
+Long-Name: Teresa Build
+Url: https://wiki.jenkins-ci.org/display/JENKINS/Teresa-Build+Plugin
+Plugin-Version: 0.1.8-SNAPSHOT (private-cca83843-hattori)
 Hudson-Version: 1.625.3
 Jenkins-Version: 1.625.3
 Plugin-Developers: Eduardo Hattori:ehattori:eduardo.fcamara@luizalabs.
  com,Eduardo Cortes:eduardocortes:eduardocortes.fcamara@luizalabs.com,
  Mahelder Melo:mahelder:mahelder.fcamara@luizalabs.com,Cleber Fonseca:
  clebercf:cleber.avance@luizalabs.com
-Libraries: /home/hattori/workspace/teresaBuild/teresa-jenkins-build/sr
- c/main/resources,/home/hattori/workspace/teresaBuild/teresa-jenkins-b
- uild/target/classes
-Resource-Path: /home/hattori/workspace/teresaBuild/teresa-jenkins-buil
- d/src/main/webapp
+Libraries: /home/hattori/workspace/teresaBuild/teresa-build-plugin/src
+ /main/resources,/home/hattori/workspace/teresaBuild/teresa-build-plug
+ in/target/classes
+Resource-Path: /home/hattori/workspace/teresaBuild/teresa-build-plugin
+ /src/main/webapp
 
