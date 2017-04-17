@@ -170,16 +170,7 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		public String getInstalations() {
 			return this.instalations;
 		}
-
-		public FormValidation doCheckVersion(@QueryParameter String value) throws IOException, ServletException {
-			System.out.println(value);
-			if (value.length() == 0)
-				return FormValidation
-						.error("Teresa-cli is not available see: <https://github.com/luizalabs/teresa-cli> ");
-
-			return FormValidation.ok();
-		}
-
+		
 		public FormValidation doCheckLogin(@QueryParameter String value) throws IOException, ServletException {
 			if (value.length() == 0)
 				return FormValidation.error("Please set a Login");

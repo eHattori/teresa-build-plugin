@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>teresa-build</artifactId>
-	<version>0.1.10-SNAPSHOT</version>
+	<version>0.1.11-SNAPSHOT</version>
 	<packaging>hpi</packaging>
 	<name>Teresa Build</name>
 	<description>Teresa Build is an useful jenkins plugin that helps the developer to deploy applications easily</description>
