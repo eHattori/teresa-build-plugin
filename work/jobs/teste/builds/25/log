@@ -1,0 +1,56 @@
+Iniciado pelo usuário [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzOEgYu/dLi1CL9vNKcHACFIKlWvwAAAA==[0manonymous
+Construindo no workspace /home/hattori/workspace/teresaBuild/teresa-build/work/jobs/teste/workspace
+User, teste!
+Password, asasas!
+Cluster, asas!
+Application, asasas!
+Command, teresa
+
+!
+Configure Teresa
+
+Teresa cli. You can manage teams, users and create and deploy applications with
+it.
+
+Teresa CLI works by sending HTTP requests to Kubernetes clusters that have a
+Teresa API server running. You can have multiple clusters configured on your
+local box, one for each cloud provider or one for each environment or a mix
+of those.
+
+Teresa doesn't start using any cluster by it's own: you have to tell her which
+one to use.
+
+To set a cluster, eg.:
+
+  $ teresa config set-cluster my_cluster_name -s https://mycluster.mydomain.com
+
+To use that cluster:
+
+  $ teresa config use-cluster my_cluster_name
+
+From that point on, all the operations will be directed to that cluster. You can
+view the whole configuration anytime by running:
+
+  $ teresa config view
+
+Usage:
+  teresa [command]
+
+Available Commands:
+  app         Everything about apps
+  config      Setup cluster servers and view config file
+  create      Create team, user or application
+  delete      Delete team or user
+  deploy      Deploy an app
+  gen         Generate bash autocompletion script for Teresa cli
+  login       Login in the currently selected cluster
+  team        Everything about teams
+  version     Shows the client and selected server version
+
+Flags:
+      --config string   config file
+
+Use "teresa [command] --help" for more information about a command.
+
+[workspace] $ /bin/sh -xe /tmp/hudson3600317162917291154.sh
+Finished: SUCCESS

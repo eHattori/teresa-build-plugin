@@ -1,0 +1,33 @@
+Iniciado pelo usuário [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzOEgYu/dLi1CL9vNKcHACFIKlWvwAAAA==[0manonymous
+Construindo no workspace /home/hattori/workspace/teresaBuild/teresa-build-plugin/work/jobs/logando-teresa/workspace
+Login:  eduardo.fcamara@luizalabs.com
+Server:  http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080
+Cluster Name:  ml-gestao-fretes
+Command :  asd
+Client Version : Client version: v0.3.2
+
+Configure Teresa Server
+teresa config set-cluster ml-gestao-fretes -s http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080
+teresa config use-cluster ml-gestao-fretes
+Execute Command: 
+asd
+sh: 1: asd: not found
+ERRO: sh: 1: asd: not found
+
+FATAL: sh: 1: asd: not found
+
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mjava.io.IOException: sh: 1: asd: not found
+
+	at org.jenkinsci.plugins.teresabuild.Utils.executeCommand(Utils.java:58)
+	at org.jenkinsci.plugins.teresabuild.TeresaBuilder.perform(TeresaBuilder.java:119)
+	at hudson.tasks.BuildStepCompatibilityLayer.perform(BuildStepCompatibilityLayer.java:75)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:785)
+	at hudson.model.Build$BuildExecution.build(Build.java:205)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:162)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:537)
+	at hudson.model.Run.execute(Run.java:1741)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+	at hudson.model.ResourceController.execute(ResourceController.java:98)
+	at hudson.model.Executor.run(Executor.java:408)
+Finished: FAILURE
