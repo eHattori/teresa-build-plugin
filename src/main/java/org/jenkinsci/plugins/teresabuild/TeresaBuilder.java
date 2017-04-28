@@ -1,11 +1,6 @@
 package org.jenkinsci.plugins.teresabuild;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -51,6 +46,7 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 
 	/**
 	 * We'll use this from the {@code config.jelly}.
+	 * @return String
 	 */
 	public String getLogin() {
 		return login;
@@ -154,16 +150,7 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		 * In order to load the persisted global configuration, you have to call
 		 * load() in the constructor.
 		 */
-		public DescriptorImpl() {
-			String output;
-			try {
-				output = Utils.executeCommand("teresa version", null);
-				this.instalations = output;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		public DescriptorImpl() {			
 			load();
 		}
 
