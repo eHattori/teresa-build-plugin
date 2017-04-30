@@ -1,1 +1,0 @@
-Arquivos que serão disponibilizados no seu endereço http://server/hudson/ArquivosDoUsuario/
