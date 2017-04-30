@@ -1,6 +1,15 @@
 package org.jenkinsci.plugins.teresabuild;
 
+<<<<<<< HEAD
 import java.io.IOException;
+=======
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> 8d17eb35461576a2aaab1968f020cfdd822a2803
 
 import javax.servlet.ServletException;
 
@@ -46,7 +55,10 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 
 	/**
 	 * We'll use this from the {@code config.jelly}.
+<<<<<<< HEAD
 	 * @return String
+=======
+>>>>>>> 8d17eb35461576a2aaab1968f020cfdd822a2803
 	 */
 	public String getLogin() {
 		return login;
@@ -150,14 +162,40 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		 * In order to load the persisted global configuration, you have to call
 		 * load() in the constructor.
 		 */
+<<<<<<< HEAD
 		public DescriptorImpl() {			
+=======
+		public DescriptorImpl() {
+			String output;
+			try {
+				output = Utils.executeCommand("teresa version", null);
+				this.instalations = output;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+>>>>>>> 8d17eb35461576a2aaab1968f020cfdd822a2803
 			load();
 		}
 
 		public String getInstalations() {
 			return this.instalations;
 		}
+<<<<<<< HEAD
 		
+=======
+
+		public FormValidation doCheckVersion(@QueryParameter String value) throws IOException, ServletException {
+			System.out.println(value);
+			if (value.length() == 0)
+				return FormValidation
+						.error("Teresa-cli is not available see: <https://github.com/luizalabs/teresa-cli> ");
+
+			return FormValidation.ok();
+		}
+
+>>>>>>> 8d17eb35461576a2aaab1968f020cfdd822a2803
 		public FormValidation doCheckLogin(@QueryParameter String value) throws IOException, ServletException {
 			if (value.length() == 0)
 				return FormValidation.error("Please set a Login");

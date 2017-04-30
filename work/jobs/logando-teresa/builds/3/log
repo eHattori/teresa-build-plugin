@@ -1,0 +1,11 @@
+Iniciado pelo usuário [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzOEgYu/dLi1CL9vNKcHACFIKlWvwAAAA==[0manonymous
+Construindo no workspace /home/hattori/workspace/teresaBuild/teresa-build/work/jobs/logando-teresa/workspace
+User, eduardo.fcamara@luizalabs.com!
+Password, eduardo2000!
+Cluster, http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080!
+Cluster Name, ml-gestao-fretes!
+Application, back-ml-gestao-fretes!
+Command, teresa app list > log.txt
+cat log.txt!
+Configure Teresa
+Finished: SUCCESS

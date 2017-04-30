@@ -1,0 +1,18 @@
+Iniciado pelo usuário [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzOEgYu/dLi1CL9vNKcHACFIKlWvwAAAA==[0manonymous
+Construindo no workspace /home/hattori/workspace/teresaBuild/teresa-build-plugin/work/jobs/logando-teresa/workspace
+Login:  eduardo.fcamara@luizalabs.com
+Server:  http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080
+Cluster Name:  ml-gestao-fretes
+Command :  asd
+Client Version : Client version: v0.3.2
+
+Configure Teresa Server
+teresa config set-cluster ml-gestao-fretes -s http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080
+teresa config use-cluster ml-gestao-fretes
+Execute Command: 
+asd
+sh: 1: asd: not found
+ERRO: sh: 1: asd: not found
+
+build foi abortado
+Finished: ABORTED

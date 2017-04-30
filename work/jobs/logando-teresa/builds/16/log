@@ -1,0 +1,28 @@
+Iniciado pelo usuário [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzOEgYu/dLi1CL9vNKcHACFIKlWvwAAAA==[0manonymous
+Construindo no workspace /home/hattori/workspace/teresaBuild/teresa-jenkins-build/work/jobs/logando-teresa/workspace
+Login:  eduardo.fcamara@luizalabs.com
+Server:  http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080
+Cluster Name:  ml-gestao-fretes
+Command :  teresa app list
+Client Version : Client version: v0.2.1
+
+Configure Teresa Server
+teresa config set-cluster ml-gestao-fretes -s http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080
+echo '$USER'
+'$USER'
+pwd
+/home/hattori/workspace/teresaBuild/teresa-jenkins-build
+cat script.sh
+#! /bin/bash 
+ echo 'eduardo2000' | teresa login --user eduardo.fcamara@luizalabs.com
+chmod +x script.sh
+sh script.sh
+Password: ***********
+time="Apr 12 18:58:58" level=fatal msg="Failed to login: Post http://ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com:8080/v1/login: dial tcp: lookup ad4eefd86004911e79d8f0e2b7d28f6c-1121850448.us-east-1.elb.amazonaws.com on 127.0.1.1:53: read udp 127.0.0.1:51862->127.0.1.1:53: i/o timeout\n" 
+Execute Command: 
+chmod +x script.sh
+sh script.sh
+time="Apr 12 18:59:16" level=error msg="generic error" command="teresa app list" error="[GET /apps][401] getApps default  &{Code:0xc4202c4158 Message:0xc4202c4160 Reason:}" 
+Something wrong happened... we collected all necessary data to fix and improve teresa
+If you want more info, check logs in ...
+Finished: SUCCESS

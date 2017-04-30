@@ -1,16 +1,25 @@
+<<<<<<< HEAD
 ## Teresa Plugin
+=======
+## Teresa Jenkins plugin
+>>>>>>> 8d17eb35461576a2aaab1968f020cfdd822a2803
 
 The main objective of this project is to turn teresa-cli available to Jenkins.
 
 ### 1 - Installation
 
+<<<<<<< HEAD
 * Install the teresa-cli on Jenkins server https://github.com/luizalabs/teresa-cli
+=======
+* Install the teresa-cli on Jenkins server
+>>>>>>> 8d17eb35461576a2aaab1968f020cfdd822a2803
 
 ### 2 - Clone Repositório
 
 Clone repo:
 
 ```bash
+<<<<<<< HEAD
 git clone https://github.com/eHattori/teresa-jenkins-build
 
 ```
@@ -36,4 +45,12 @@ For install the plugin follow this steps
 4 - Click Upload. Jenkins displays a status screen that shows the plugin installing.
 
  
+=======
+https://github.com/eHattori/teresa-jenkins-build
+```
+
+### 3 - Building
+
+### 4 - Deploy 
+>>>>>>> 8d17eb35461576a2aaab1968f020cfdd822a2803
 
