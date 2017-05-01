@@ -42,10 +42,11 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	private final String server;
 	private final String clusterName;
 	private final String command;
-	private TaskListener listener;
+	private Launcher launcher;
 
 	/**
 	 * We'll use this from the {@code config.jelly}.
+	 * 
 	 * @return String
 	 */
 	public String getLogin() {
@@ -71,10 +72,11 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	private void configureTeresa() throws Exception {
 
 		Utils.executeCommand("teresa config set-cluster " + this.getClusterName() + " -s " + this.getServer(),
-				this.listener);
-		Utils.executeCommand("teresa config use-cluster " + this.getClusterName(), this.listener);
+				this.launcher, false);
+		Utils.executeCommand("teresa config use-cluster " + this.getClusterName(), this.launcher, false);
 
-		Utils.executeCommand("echo '" + this.getPassword() + "' | teresa login --user " + this.getLogin(), null);
+		Utils.executeCommand("echo '" + this.getPassword() + "' | teresa login --user " + this.getLogin(),
+				this.launcher, false);
 	}
 
 	// Fields in config.jelly must match the parameter names in the
@@ -90,7 +92,7 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 
 	@Override
 	public void perform(Run<?, ?> build, FilePath workspace, Launcher launcher, TaskListener listener)
-			throws InterruptedException, IOException  {
+			throws InterruptedException, IOException {
 
 		// This is where you 'build' the project.
 		// Since this is a dummy, we just say 'hello world' and call that a
@@ -98,13 +100,13 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 
 		// This also shows how you can consult the global configuration of the
 		// builder
-		this.listener = listener;
+		this.launcher = launcher;
 
 		listener.getLogger().println("Login:  " + this.login);
 		listener.getLogger().println("Server:  " + this.server);
 		listener.getLogger().println("Cluster Name:  " + this.clusterName);
 		listener.getLogger().println("Command :  " + this.command);
-		listener.getLogger().println("Client Version : " + this.getDescriptor().getInstalations());
+		Utils.executeCommand("teresa version ", launcher, true);
 
 		listener.getLogger().println("Configure Teresa Server");
 
@@ -112,11 +114,10 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 			this.configureTeresa();
 
 			listener.getLogger().println("Execute Command: ");
-			Utils.executeCommand(command, this.listener);
+			Utils.executeCommand(command, launcher, true);
 
-		
 		} catch (IOException e) {
-			throw e; 			
+			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -144,35 +145,12 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 				// extension point.
 	public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
 
-		private String instalations;
-
 		/**
 		 * In order to load the persisted global configuration, you have to call
 		 * load() in the constructor.
 		 */
 		public DescriptorImpl() {
-			String output;
-			try {
-				output = Utils.executeCommand("teresa version", null);
-				this.instalations = output;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			load();
-		}
-
-		public String getInstalations() {
-			return this.instalations;
-		}
-		
-		public FormValidation doCheckVersion(@QueryParameter String value) throws IOException, ServletException {
-			System.out.println(value);
-			if (value.length() == 0)
-				return FormValidation
-						.error("Teresa-cli is not available see: <https://github.com/luizalabs/teresa-cli> ");
-
-			return FormValidation.ok();
 		}
 
 		public FormValidation doCheckLogin(@QueryParameter String value) throws IOException, ServletException {
