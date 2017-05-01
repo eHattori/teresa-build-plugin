@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import hudson.Launcher;
 import hudson.Launcher.ProcStarter;
 import hudson.Proc;
+import hudson.model.Hudson;
+import hudson.model.TaskListener;
 import hudson.util.ArgumentListBuilder;
 
 public class Utils {
@@ -16,18 +18,21 @@ public class Utils {
 			throws IOException, InterruptedException {
 		try {
 			
-			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+			if(stout)
+				launcher.getListener().getLogger().println(cmd);
 			
 			String[] cmdE = { "sh", "-c", cmd };
 			
-			ArgumentListBuilder args = new ArgumentListBuilder(cmdE);
-			ProcStarter ps = launcher.launch();
-
+			ArgumentListBuilder args = new ArgumentListBuilder(cmdE);			
+			ProcStarter ps = Hudson.getInstance().createLauncher(TaskListener.NULL).launch();
+			
 			ps.cmds(args);
 			ps.envs(new String[0]);
-			ps.stdout(bytes);
+			ps.stdout(launcher.getListener());
 			
-			Proc proc = launcher.launch(ps);
+			ps.pwd(Hudson.getInstance().getRootPath());
+	        Proc proc = Hudson.getInstance().createLauncher(TaskListener.NULL).launch(ps);
+
 			int retcode = proc.join();
 
 			if (retcode != 0) {

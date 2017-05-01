@@ -42,7 +42,6 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	private final String server;
 	private final String clusterName;
 	private final String command;
-	private Launcher launcher;
 
 	/**
 	 * We'll use this from the {@code config.jelly}.
@@ -69,14 +68,14 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		return clusterName;
 	}
 
-	private void configureTeresa() throws Exception {
+	private void configureTeresa(Launcher launcher) throws Exception {
 
 		Utils.executeCommand("teresa config set-cluster " + this.getClusterName() + " -s " + this.getServer(),
-				this.launcher, false);
-		Utils.executeCommand("teresa config use-cluster " + this.getClusterName(), this.launcher, false);
+				launcher, false);
+		Utils.executeCommand("teresa config use-cluster " + this.getClusterName(), launcher, false);
 
 		Utils.executeCommand("echo '" + this.getPassword() + "' | teresa login --user " + this.getLogin(),
-				this.launcher, false);
+				launcher, false);
 	}
 
 	// Fields in config.jelly must match the parameter names in the
@@ -94,14 +93,6 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	public void perform(Run<?, ?> build, FilePath workspace, Launcher launcher, TaskListener listener)
 			throws InterruptedException, IOException {
 
-		// This is where you 'build' the project.
-		// Since this is a dummy, we just say 'hello world' and call that a
-		// build.
-
-		// This also shows how you can consult the global configuration of the
-		// builder
-		this.launcher = launcher;
-
 		listener.getLogger().println("Login:  " + this.login);
 		listener.getLogger().println("Server:  " + this.server);
 		listener.getLogger().println("Cluster Name:  " + this.clusterName);
@@ -111,7 +102,7 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 		listener.getLogger().println("Configure Teresa Server");
 
 		try {
-			this.configureTeresa();
+			this.configureTeresa(launcher);
 
 			listener.getLogger().println("Execute Command: ");
 			Utils.executeCommand(command, launcher, true);
