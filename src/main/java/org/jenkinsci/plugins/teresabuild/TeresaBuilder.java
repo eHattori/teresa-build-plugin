@@ -79,7 +79,7 @@ public class TeresaBuilder extends Builder implements SimpleBuildStep {
 	}
 
 	// Fields in config.jelly must match the parameter names in the
-	// "DataBoundConstructor"
+	// "DataBoundConstructor"	
 	@DataBoundConstructor
 	public TeresaBuilder(String login, String password, String server, String clusterName, String command) {
 		this.login = login;
